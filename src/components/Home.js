@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Home.css';
+import './Home.scss';
 import Api from '../services/api-access'
 
 const Items = (props) => {
