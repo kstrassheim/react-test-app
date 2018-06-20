@@ -4,6 +4,7 @@ import Home from './components/Home';
 import ItemView from './components/ItemView'
 import About from './components/About'
 import Header from './components/Header';
+import Form from './components/Form';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './App.css';
 
@@ -21,6 +22,7 @@ class App extends Component {
             <Route exact path='/' component={Home}/>
             <Route exact path='/item/:id' component={ItemView}/>
             <Route path='/about' component={About}/>
+            <Route path='/form' component={Form} />
           </Switch>
           </div>
         </div>
