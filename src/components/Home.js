@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './Home.scss';
 import Api from '../services/api-access'
-import {Link} from 'react-router-dom'
+import {Link, withRouter } from 'react-router-dom'
 
 const Items = (props) => {
     const options = props.items.map(o => (
       <li key={o.id}>
-        <Link to={{ pathname: `/item/${o.id}` }}>{o.email}</Link>
+        <a href="#" key={o.id} onClick={()=>props.onSelectItem(o)}>{o.email}</a>
+        {/* //<Link to={{ pathname: `/item/${o.id}` }}></Link> */}
       </li>
     ));
     return <ul className='listView'>{options}</ul>
@@ -17,11 +18,15 @@ export const DetailView = (props) => {
         return  <div className='detailView'>
             <div className='row'>
                 <div className='col-6'>Id:</div>
-                <div className='col-6'>{o.id}</div>
+                <div className='col-6'>
+                    <a href="#" key={o.id} onClick={()=>{if (props.onDetailSelectItem) props.onDetailSelectItem(o);}}>{o.id}</a>
+                </div>
             </div>
             <div className='row'>
                 <div className='col-6'>Name:</div>
-                <div className='col-6'>{o.name}</div>
+                <div className='col-6'>
+                    <Link to={{ pathname: `/item/${o.id}` }}>{o.name}</Link>
+                </div>
             </div>
             <div className='row'>
                 <div className='col-6'>Email:</div>
@@ -83,6 +88,10 @@ class Home extends Component {
         this.setState({selectedItem:item});
     }
 
+    onDetailSelectItem(item, history) {
+        this.props.history.push(`/item/${item.id}`);
+    }
+
     render() {
         return (
             <div className="Home">    
@@ -103,7 +112,7 @@ class Home extends Component {
                         <Items items={this.state.items} onSelectItem={this.onSelectItem.bind(this)} />
                     </div>
                     <div className='col-5'>
-                        <DetailView item={this.state.selectedItem} />
+                        <DetailView item={this.state.selectedItem} onDetailSelectItem={this.onDetailSelectItem.bind(this)} />
                     </div>
                 </div>
             </div>
@@ -111,4 +120,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default withRouter(Home);

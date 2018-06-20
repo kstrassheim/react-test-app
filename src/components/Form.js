@@ -1,12 +1,17 @@
 import React, {Component} from 'react';
+import { SSL_OP_NETSCAPE_CHALLENGE_BUG } from 'constants';
 
 class Form extends Component {
     constructor(props) {
         super(props);
+
+        let d = localStorage.getItem("description");
+        let sf = localStorage.getItem("selectedFruit");
+
         this.state = {
             fruits : [{id : 1, name: 'Apple'}, {id: 2, name: 'Orange'}, {id: 3, name: 'Pie'}],
-            selectedFruit: 1,
-            description : ''
+            selectedFruit: sf ? sf : 1,
+            description : d ? d :''
         }
     }
 
@@ -14,12 +19,16 @@ class Form extends Component {
         this.setState({
             selectedFruit: event.target.value
         });
+
+        localStorage.setItem('selectedFruit', event.target.value);
     }
 
     onDescriptionChange(event) {
         this.setState({
             description: event.target.value
         });
+
+        localStorage.setItem('description', event.target.value);
     }
 
     createDDItems() {
