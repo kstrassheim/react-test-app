@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import './Home.scss';
 import Api from '../services/api-access'
+import {Link} from 'react-router-dom'
 
 const Items = (props) => {
     const options = props.items.map(o => (
       <li key={o.id}>
-        <a href='#' onClick={()=>props.onSelectItem(o, this)}>{o.email}</a>
+        <Link to={{ pathname: `/item/${o.id}` }}>{o.email}</Link>
       </li>
     ));
     return <ul className='listView'>{options}</ul>
   }
-const DetailView = (props) => {
+export const DetailView = (props) => {
     var o = props.item;
     if (o) {
         return  <div className='detailView'>
